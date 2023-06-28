@@ -1,0 +1,18 @@
+CREATE DATABASE jwt_auth;
+USE jwt_auth;
+
+CREATE TABLE users(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  isActivated BOOLEAN DEFAULT false,
+  activationLink VARCHAR(255),
+  created DATETIME DEFAULT now()
+);
+
+CREATE TABLE tokens(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  userId INT,
+  refreshToken VARCHAR(255) NOT NULL,
+  FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
+);
